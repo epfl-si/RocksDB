@@ -146,7 +146,7 @@ sub ACTION_typemap {
 
 sub ACTION_build {
     my $self = shift;
-    $self->do_system('make' => '-C', $ROCKSDB_DIR, 'static_lib', 'OPT=-fPIC', 'USE_RTTI=1');
+    $self->do_system('make' => '-C', $ROCKSDB_DIR, 'static_lib', 'OPT=-fPIC', 'USE_RTTI=1', 'DISABLE_WARNING_AS_ERROR=1');
     $self->SUPER::ACTION_build();
 }
 
