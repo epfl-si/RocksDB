@@ -55,8 +55,7 @@ sub check_compiler {
 #error C++11 Required
 #endif
 END_SRC
-    my $cc = $self->config('cc');
-    my $failed = system "$cc -x c++ -std=gnu++11 $filename -c -o /dev/null >/dev/null 2>&1";
+    my $failed = system "g++ -std=gnu++11 $filename -c -o /dev/null >/dev/null 2>&1";
     print $failed ? "no\n" : "yes\n";
     !$failed;
 }
@@ -102,9 +101,8 @@ int main() {
     return 0;
 }
 END_SRC
-    my $cc = $self->config('cc');
     my $options = "-x c++ -std=gnu++11 -lstdc++ $config->{PLATFORM_CXXFLAGS} $config->{PLATFORM_LDFLAGS}";
-    my $failed = system "$cc $options $filename -o /dev/null >/dev/null 2>&1";
+    my $failed = system "g++ $options $filename -o /dev/null >/dev/null 2>&1";
     print $failed ? "no\n" : "yes\n";
     !$failed;
 }
