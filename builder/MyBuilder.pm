@@ -21,6 +21,7 @@ sub new {
             -Wno-parentheses
             -Wno-unused
             -Wno-literal-suffix
+            -fno-rtti
         ),
         split(/\s+/, $make_config->{PLATFORM_CXXFLAGS}),
     );
