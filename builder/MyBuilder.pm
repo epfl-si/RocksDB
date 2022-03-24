@@ -18,12 +18,9 @@ sub new {
         qw(-x c++ -std=gnu++11 -I.),
         qw(
             -Wall
-            -Wno-reserved-user-defined-literal
-            -Wno-duplicate-decl-specifier
             -Wno-parentheses
             -Wno-unused
             -Wno-literal-suffix
-            -Wno-unknown-warning-option
         ),
         split(/\s+/, $make_config->{PLATFORM_CXXFLAGS}),
     );
