@@ -11,7 +11,9 @@ sub new {
     %args = (get_options => { 'with-included-rocksdb' => { type => '!' } }, %args);
     my $self = $class->SUPER::new(%args);
     $self->check_compiler or die 'C++11 compiler required';
-    my $make_config = $self->parse_make_config();
+    my $make_config = $self->want_included_rocksdb() ?
+      $self->parse_make_config()                   :
+      $self->no_flags;
     my @extra_compiler_flags = (
         qw(-x c++ -std=gnu++11 -I.),
         qw(
