@@ -29,7 +29,7 @@ sub new {
         qw(-lstdc++ -lrocksdb),
         split(/\s+/, $make_config->{PLATFORM_LDFLAGS}),
     );
-    if ($self->args('with-included-rocksdb') || !$self->have_rocksdb($make_config)) {
+    if ($self->want_included_rocksdb($make_config)) {
         push @extra_compiler_flags, "-I$ROCKSDB_DIR/include";
         push @extra_linker_flags, "-L$ROCKSDB_DIR";
     }
@@ -43,6 +43,19 @@ sub new {
     $self->extra_compiler_flags(@extra_compiler_flags);
     $self->extra_linker_flags(@extra_linker_flags);
     $self;
+}
+
+sub want_included_rocksdb {
+  my ($self, $make_config) = @_;
+  return ($self->args('with-included-rocksdb') ||
+          !$self->have_rocksdb($make_config || $self->no_flags))
+}
+
+sub no_flags {
+  return {
+    PLATFORM_CXXFLAGS => "",
+    PLATFORM_LDFLAGS => ""
+  };
 }
 
 sub check_compiler {
